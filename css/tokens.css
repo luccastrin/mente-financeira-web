@@ -1,0 +1,18 @@
+:root {
+  --bg-deep: #070b12;
+  --bg-card: rgba(15, 22, 36, 0.72);
+  --bg-card-solid: #0f1624;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e8ecf4;
+  --muted: #94a3b8;
+  --accent: #34d399;
+  --accent-dim: rgba(52, 211, 153, 0.15);
+  --gold: #fbbf24;
+  --gold-dim: rgba(251, 191, 36, 0.12);
+  --danger: #f87171;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+}
