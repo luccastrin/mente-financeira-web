@@ -144,35 +144,77 @@
   color: var(--muted);
 }
 
-/* Captura real do app (PNG já inclui moldura e Dynamic Island) */
+/* Mock do app — PNG com fundo transparente (sombra segue o contorno do aparelho) */
 .mock-wrap {
   perspective: 1200px;
   animation: fade-in-up 1s ease 0.35s both;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 0.5rem 1.5rem;
 }
 
 .hero-device {
   margin: 0;
-  margin-inline: auto;
-  max-width: min(300px, 82vw);
+  position: relative;
+  isolation: isolate;
+  max-width: min(318px, 88vw);
   transform: rotateY(-6deg) rotateX(4deg);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 44px;
-  box-shadow:
-    var(--shadow),
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 32px 64px rgba(25, 37, 216, 0.15);
+}
+
+.hero-device::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 52%;
+  translate: -50% -50%;
+  width: min(115%, 420px);
+  height: 78%;
+  background: radial-gradient(
+    ellipse,
+    rgba(137, 31, 182, 0.42) 0%,
+    rgba(25, 37, 216, 0.22) 42%,
+    transparent 72%
+  );
+  filter: blur(36px);
+  pointer-events: none;
+  opacity: 0.95;
 }
 
 .mock-wrap:hover .hero-device {
-  transform: rotateY(0deg) rotateX(0deg) translateY(-8px);
+  transform: rotateY(0deg) rotateX(0deg) translateY(-10px);
 }
 
 .hero-device img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
-  border-radius: inherit;
   vertical-align: middle;
+  filter: drop-shadow(0 32px 56px rgba(0, 0, 0, 0.58))
+    drop-shadow(0 14px 28px rgba(25, 37, 216, 0.2))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+  transition: filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mock-wrap:hover .hero-device img {
+  filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.52))
+    drop-shadow(0 18px 36px rgba(137, 31, 182, 0.28))
+    drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-device img {
+    transition: none;
+  }
+  .mock-wrap:hover .hero-device img {
+    filter: drop-shadow(0 32px 56px rgba(0, 0, 0, 0.58))
+      drop-shadow(0 14px 28px rgba(25, 37, 216, 0.2))
+      drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+  }
 }
 
 /* Logo strip */
