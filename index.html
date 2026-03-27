@@ -1,119 +1,1957 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mente Financeira - Seu App de Investimentos</title>
+    <meta
+      name="description"
+      content="Mente Financeira — acompanhe ações e fundos imobiliários com clareza. Planos mensal e anual."
+    />
+    <title>Mente Financeira — Ações & FIIs na palma da mão</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      :root {
+        --bg-deep: #070b12;
+        --bg-card: rgba(15, 22, 36, 0.72);
+        --bg-card-solid: #0f1624;
+        --border: rgba(255, 255, 255, 0.08);
+        --text: #e8ecf4;
+        --muted: #94a3b8;
+        --accent: #34d399;
+        --accent-dim: rgba(52, 211, 153, 0.15);
+        --gold: #fbbf24;
+        --gold-dim: rgba(251, 191, 36, 0.12);
+        --danger: #f87171;
+        --radius: 16px;
+        --radius-lg: 24px;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+        --font-display: "Fraunces", Georgia, serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .orb,
+        .grid-bg,
+        .hero-glow {
+          animation: none !important;
+        }
+      }
+
       body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-          Arial, sans-serif;
+        margin: 0;
+        font-family: var(--font-sans);
+        font-optical-sizing: auto;
+        color: var(--text);
+        background: var(--bg-deep);
         line-height: 1.6;
-        color: #333;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f4f7f6;
+        overflow-x: hidden;
       }
-      header {
-        text-align: center;
-        padding: 50px 0;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
+
+      .skip-link {
+        position: absolute;
+        left: -999px;
+        top: 0;
+        background: var(--accent);
+        color: #042f2e;
+        padding: 0.75rem 1rem;
+        z-index: 9999;
+        font-weight: 600;
+        border-radius: 0 0 8px 0;
       }
-      h1 {
-        color: #2c3e50;
-        margin-bottom: 10px;
+      .skip-link:focus {
+        left: 0;
       }
-      .content-box {
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+      /* Ambient background */
+      .page-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background: radial-gradient(
+            ellipse 120% 80% at 50% -20%,
+            #122032 0%,
+            var(--bg-deep) 55%
+          ),
+          var(--bg-deep);
       }
+
+      .grid-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent);
+        animation: grid-pan 80s linear infinite;
+        opacity: 0.5;
+      }
+
+      @keyframes grid-pan {
+        0% {
+          background-position: 0 0, 0 0;
+        }
+        100% {
+          background-position: 64px 64px, 64px 64px;
+        }
+      }
+
+      .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.45;
+        z-index: -1;
+        pointer-events: none;
+      }
+      .orb-1 {
+        width: 420px;
+        height: 420px;
+        background: #0d9488;
+        top: -120px;
+        right: -80px;
+        animation: float-1 18s ease-in-out infinite;
+      }
+      .orb-2 {
+        width: 360px;
+        height: 360px;
+        background: #1e3a5f;
+        bottom: 10%;
+        left: -100px;
+        animation: float-2 22s ease-in-out infinite;
+      }
+
+      @keyframes float-1 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(-40px, 30px) scale(1.05);
+        }
+      }
+      @keyframes float-2 {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(50px, -40px);
+        }
+      }
+
+      .container {
+        width: min(1120px, 92vw);
+        margin-inline: auto;
+      }
+
+      /* Header */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 1rem 0;
+        transition:
+          background 0.35s ease,
+          backdrop-filter 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+      .site-header.is-scrolled {
+        background: rgba(7, 11, 18, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 1px 0 var(--border);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--accent), #059669);
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #042f2e;
+        box-shadow: 0 8px 32px rgba(52, 211, 153, 0.35);
+        animation: mark-pulse 3s ease-in-out infinite;
+      }
+
+      @keyframes mark-pulse {
+        0%,
+        100% {
+          box-shadow: 0 8px 32px rgba(52, 211, 153, 0.35);
+        }
+        50% {
+          box-shadow: 0 12px 40px rgba(52, 211, 153, 0.5);
+        }
+      }
+
+      .brand-text {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        font-size: 1.05rem;
+      }
+
+      .nav-desktop {
+        display: flex;
+        align-items: center;
+        gap: 1.75rem;
+      }
+      .nav-desktop a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .nav-desktop a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.25s ease;
+      }
+      .nav-desktop a:hover {
+        color: var(--text);
+      }
+      .nav-desktop a:hover::after {
+        width: 100%;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
       .btn {
-        display: inline-block;
-        background: #007bff;
-        color: white;
-        padding: 12px 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.25rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
         text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        margin-top: 20px;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s;
       }
-      footer {
+      .btn:active {
+        transform: scale(0.97);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .btn-ghost:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), #10b981);
+        color: #042f2e;
+        box-shadow: 0 8px 28px rgba(16, 185, 129, 0.35);
+      }
+      .btn-primary:hover {
+        box-shadow: 0 12px 36px rgba(16, 185, 129, 0.45);
+        transform: translateY(-1px);
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-mobile {
+        display: none;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0 0;
+        border-top: 1px solid var(--border);
+        margin-top: 1rem;
+        animation: slide-down 0.35s ease;
+      }
+      .nav-mobile.is-open {
+        display: flex;
+      }
+      .nav-mobile a {
+        color: var(--text);
+        text-decoration: none;
+        padding: 0.65rem 0;
+        font-weight: 500;
+      }
+
+      @keyframes slide-down {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .nav-desktop {
+          display: none;
+        }
+        .menu-toggle {
+          display: flex;
+        }
+        .header-actions .btn-ghost {
+          display: none;
+        }
+      }
+
+      /* Reveal on scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-stagger > * {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal-stagger.is-visible > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-stagger.is-visible > *:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .reveal-stagger.is-visible > *:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+      .reveal-stagger.is-visible > *:nth-child(3) {
+        transition-delay: 0.15s;
+      }
+      .reveal-stagger.is-visible > *:nth-child(4) {
+        transition-delay: 0.2s;
+      }
+      .reveal-stagger.is-visible > *:nth-child(5) {
+        transition-delay: 0.25s;
+      }
+      .reveal-stagger.is-visible > *:nth-child(6) {
+        transition-delay: 0.3s;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 4rem 0 5rem;
+        position: relative;
+      }
+
+      .hero-glow {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        translate: -50% -50%;
+        width: min(700px, 90vw);
+        height: 400px;
+        background: radial-gradient(
+          ellipse,
+          rgba(52, 211, 153, 0.18),
+          transparent 70%
+        );
+        pointer-events: none;
+        animation: hero-breathe 6s ease-in-out infinite;
+      }
+
+      @keyframes hero-breathe {
+        0%,
+        100% {
+          opacity: 0.7;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.05);
+        }
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .badge-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        background: var(--accent-dim);
+        border: 1px solid rgba(52, 211, 153, 0.25);
+        color: var(--accent);
+        font-size: 0.82rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        animation: fade-in-up 0.8s ease both;
+      }
+
+      .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: blink 1.5s ease-in-out infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero h1 {
+        font-family: var(--font-display);
+        font-size: clamp(2.25rem, 5vw, 3.35rem);
+        font-weight: 600;
+        line-height: 1.12;
+        letter-spacing: -0.03em;
+        margin: 0 0 1rem;
+        animation: fade-in-up 0.9s ease 0.1s both;
+      }
+
+      .hero h1 span {
+        background: linear-gradient(120deg, var(--accent), #5eead4, var(--gold));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-lead {
+        color: var(--muted);
+        font-size: 1.12rem;
+        max-width: 32ch;
+        margin: 0 0 1.75rem;
+        animation: fade-in-up 0.9s ease 0.2s both;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        animation: fade-in-up 0.9s ease 0.3s both;
+      }
+
+      .hero-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        animation: fade-in-up 0.9s ease 0.4s both;
+      }
+
+      .metric {
+        min-width: 120px;
+      }
+      .metric strong {
+        display: block;
+        font-size: 1.5rem;
+        font-family: var(--font-display);
+        color: var(--text);
+      }
+      .metric span {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      /* Phone mockup */
+      .mock-wrap {
+        perspective: 1200px;
+        animation: fade-in-up 1s ease 0.35s both;
+      }
+
+      .phone {
+        margin-inline: auto;
+        width: min(320px, 85vw);
+        aspect-ratio: 9 / 18;
+        border-radius: 36px;
+        background: linear-gradient(160deg, #1a2538, #0d1520);
+        border: 1px solid var(--border);
+        box-shadow:
+          var(--shadow),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        padding: 12px;
+        position: relative;
+        transform: rotateY(-6deg) rotateX(4deg);
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .mock-wrap:hover .phone {
+        transform: rotateY(0deg) rotateX(0deg) translateY(-8px);
+      }
+
+      .phone-notch {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        translate: -50%;
+        width: 100px;
+        height: 28px;
+        background: #0a0f18;
+        border-radius: 20px;
+      }
+
+      .phone-screen {
+        margin-top: 36px;
+        height: calc(100% - 36px);
+        border-radius: 24px;
+        background: linear-gradient(180deg, #0f172a 0%, #0c1220 100%);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .screen-header {
+        padding: 1rem 1rem 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .screen-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      .screen-pill {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 999px;
+        background: var(--accent-dim);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .chart-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 72px;
+        padding: 0 1rem;
+        margin-top: 0.5rem;
+      }
+      .bar {
+        flex: 1;
+        border-radius: 4px 4px 0 0;
+        background: linear-gradient(180deg, var(--accent), #0d9488);
+        animation: bar-grow 1.2s ease both;
+      }
+      .bar:nth-child(1) {
+        height: 35%;
+        animation-delay: 0.1s;
+      }
+      .bar:nth-child(2) {
+        height: 55%;
+        animation-delay: 0.2s;
+      }
+      .bar:nth-child(3) {
+        height: 45%;
+        animation-delay: 0.3s;
+      }
+      .bar:nth-child(4) {
+        height: 70%;
+        animation-delay: 0.4s;
+      }
+      .bar:nth-child(5) {
+        height: 50%;
+        animation-delay: 0.5s;
+      }
+      .bar:nth-child(6) {
+        height: 85%;
+        animation-delay: 0.6s;
+      }
+
+      @keyframes bar-grow {
+        from {
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+        to {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+      }
+
+      .ticker-row {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+      }
+      .ticker {
+        display: flex;
+        gap: 0.5rem;
+        animation: ticker 18s linear infinite;
+      }
+
+      @keyframes ticker {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .chip {
+        flex-shrink: 0;
+        font-size: 0.65rem;
+        padding: 0.35rem 0.55rem;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      .chip b {
+        color: var(--accent);
+      }
+
+      .asset-list {
+        padding: 0.75rem 1rem;
+      }
+      .asset {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.55rem 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.75rem;
+      }
+      .asset:last-child {
+        border-bottom: none;
+      }
+      .asset .sym {
+        font-weight: 700;
+        color: var(--text);
+      }
+      .asset .up {
+        color: var(--accent);
+      }
+
+      /* Logo strip */
+      .strip {
+        padding: 2rem 0;
+        border-block: 1px solid var(--border);
+        overflow: hidden;
+      }
+      .strip-inner {
+        display: flex;
+        gap: 3rem;
+        animation: marquee 28s linear infinite;
+        width: max-content;
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* Sections */
+      section {
+        padding: 4.5rem 0;
+      }
+
+      .section-head {
         text-align: center;
-        margin-top: 40px;
-        font-size: 0.9em;
-        color: #777;
+        max-width: 640px;
+        margin: 0 auto 3rem;
       }
-      nav {
-        margin-top: 20px;
+      .section-head h2 {
+        font-family: var(--font-display);
+        font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+        margin: 0 0 0.75rem;
+        letter-spacing: -0.02em;
       }
-      nav a {
-        margin: 0 10px;
-        color: #007bff;
+      .section-head p {
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+
+      @media (max-width: 900px) {
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .feature-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        backdrop-filter: blur(12px);
+        transition:
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.35s,
+          box-shadow 0.35s;
+      }
+      .feature-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(52, 211, 153, 0.35);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      }
+
+      .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        font-size: 1.35rem;
+        margin-bottom: 1rem;
+        background: var(--gold-dim);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+      }
+      .feature-card:nth-child(2) .feature-icon {
+        background: var(--accent-dim);
+        border-color: rgba(52, 211, 153, 0.25);
+      }
+      .feature-card:nth-child(3) .feature-icon {
+        background: rgba(96, 165, 250, 0.12);
+        border-color: rgba(96, 165, 250, 0.25);
+      }
+      .feature-card:nth-child(4) .feature-icon {
+        background: rgba(244, 114, 182, 0.12);
+        border-color: rgba(244, 114, 182, 0.25);
+      }
+      .feature-card:nth-child(5) .feature-icon {
+        background: rgba(167, 139, 250, 0.12);
+        border-color: rgba(167, 139, 250, 0.25);
+      }
+      .feature-card:nth-child(6) .feature-icon {
+        background: rgba(52, 211, 211, 0.12);
+        border-color: rgba(45, 212, 191, 0.35);
+      }
+
+      .feature-card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.05rem;
+      }
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      /* Steps */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+        counter-reset: step;
+      }
+
+      @media (max-width: 768px) {
+        .steps {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .step {
+        position: relative;
+        padding: 1.75rem;
+        border-radius: var(--radius-lg);
+        background: var(--bg-card-solid);
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+      .step::before {
+        counter-increment: step;
+        content: counter(step);
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        font-family: var(--font-display);
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.06);
+      }
+      .step h3 {
+        margin: 0 0 0.5rem;
+      }
+      .step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      /* Pricing */
+      .pricing-toggle-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .pricing-toggle {
+        display: inline-flex;
+        padding: 4px;
+        border-radius: 999px;
+        background: var(--bg-card-solid);
+        border: 1px solid var(--border);
+        position: relative;
+      }
+
+      .pricing-toggle button {
+        position: relative;
+        z-index: 1;
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        font-family: inherit;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.6rem 1.35rem;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      .pricing-toggle button.is-active {
+        color: #042f2e;
+      }
+
+      .toggle-pill {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        height: calc(100% - 8px);
+        width: calc(50% - 4px);
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), #10b981);
+        transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+      }
+      .pricing-toggle[data-period="yearly"] .toggle-pill {
+        transform: translateX(100%);
+      }
+
+      .save-badge {
+        font-size: 0.78rem;
+        color: var(--gold);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        animation: fade-in-up 0.5s ease both;
+      }
+
+      .pricing-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        max-width: 880px;
+        margin-inline: auto;
+      }
+
+      @media (max-width: 768px) {
+        .pricing-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .price-card {
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        backdrop-filter: blur(12px);
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.4s;
+      }
+
+      .price-card.popular {
+        border-color: rgba(52, 211, 153, 0.45);
+        box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.15);
+      }
+
+      .price-card.popular::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at top right,
+          rgba(52, 211, 153, 0.12),
+          transparent 55%
+        );
+        pointer-events: none;
+      }
+
+      .price-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .price-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+      }
+
+      .price-amount {
+        font-family: var(--font-display);
+        font-size: 2.75rem;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        margin: 0;
+        line-height: 1;
+      }
+
+      .price-amount .currency {
+        font-size: 1.35rem;
+        vertical-align: top;
+        margin-right: 0.15rem;
+      }
+
+      .price-period {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin: 0.5rem 0 1.25rem;
+      }
+
+      .price-equivalent {
+        font-size: 0.88rem;
+        color: var(--accent);
+        font-weight: 600;
+        min-height: 1.4em;
+        margin-bottom: 1rem;
+      }
+
+      .price-equivalent.is-hidden {
+        opacity: 0;
+      }
+
+      .price-list {
+        list-style: none;
+        margin: 0 0 1.5rem;
+        padding: 0;
+      }
+      .price-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        margin-bottom: 0.65rem;
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+      .price-list li::before {
+        content: "✓";
+        color: var(--accent);
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+
+      .ribbon {
+        position: absolute;
+        top: 1.25rem;
+        right: -2.5rem;
+        rotate: 45deg;
+        background: linear-gradient(90deg, var(--gold), #f59e0b);
+        color: #1a1003;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.35rem 2.5rem;
+        box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+      }
+
+      /* Testimonials */
+      .testimonials {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+
+      @media (max-width: 900px) {
+        .testimonials {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .quote-card {
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        transition: border-color 0.3s;
+      }
+      .quote-card:hover {
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+      .quote-card p {
+        margin: 0 0 1rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .quote-author {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #334155, #1e293b);
+        display: grid;
+        place-items: center;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .quote-author strong {
+        display: block;
+        font-size: 0.9rem;
+      }
+      .quote-author span {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      /* FAQ */
+      .faq {
+        max-width: 720px;
+        margin-inline: auto;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--border);
+      }
+      .faq-item button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.15rem 0;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+      }
+      .faq-item button .chev {
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+      .faq-item.is-open button .chev {
+        transform: rotate(180deg);
+      }
+      .faq-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.45s ease;
+      }
+      .faq-panel-inner {
+        padding-bottom: 1.15rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      /* CTA */
+      .cta-band {
+        margin: 2rem 0 0;
+        padding: 3.5rem 2rem;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          rgba(52, 211, 153, 0.18),
+          rgba(30, 58, 95, 0.5)
+        );
+        border: 1px solid rgba(52, 211, 153, 0.25);
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-band::before {
+        content: "";
+        position: absolute;
+        inset: -40% -20%;
+        background: radial-gradient(
+          circle at 30% 50%,
+          rgba(52, 211, 153, 0.12),
+          transparent 45%
+        );
+        animation: cta-shimmer 8s ease-in-out infinite;
+      }
+
+      @keyframes cta-shimmer {
+        0%,
+        100% {
+          transform: translateX(0) rotate(0deg);
+        }
+        50% {
+          transform: translateX(4%) rotate(3deg);
+        }
+      }
+
+      .cta-band h2 {
+        font-family: var(--font-display);
+        margin: 0 0 0.75rem;
+        position: relative;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+      }
+      .cta-band p {
+        color: var(--muted);
+        margin: 0 0 1.5rem;
+        position: relative;
+        max-width: 480px;
+        margin-inline: auto;
+      }
+      .cta-band .btn-wrap {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+
+      /* Footer */
+      .site-footer {
+        padding: 3rem 0 2rem;
+        border-top: 1px solid var(--border);
+        margin-top: 2rem;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 2rem;
+      }
+      @media (max-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .site-footer .brand {
+        margin-bottom: 0.5rem;
+      }
+      .footer-col p {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin: 0.5rem 0 0;
+        max-width: 28ch;
+      }
+      .footer-col h4 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin: 0 0 0.75rem;
+      }
+      .footer-col a {
+        display: block;
+        color: var(--text);
         text-decoration: none;
+        font-size: 0.92rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.85;
+        transition: opacity 0.2s;
       }
-      hr {
-        border: 0;
-        border-top: 1px solid #eee;
-        margin: 30px 0;
+      .footer-col a:hover {
+        opacity: 1;
+        color: var(--accent);
+      }
+      .footer-bottom {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      /* Privacy (legal) */
+      .legal-section {
+        background: var(--bg-card-solid);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 2rem 2rem 2.5rem;
+        margin: 3rem 0 0;
+      }
+      .legal-section h2 {
+        font-family: var(--font-display);
+        margin-top: 0;
+      }
+      .legal-section h3 {
+        font-size: 1rem;
+        margin: 1.5rem 0 0.5rem;
+      }
+      .legal-section p {
+        color: var(--muted);
+        margin: 0 0 0.75rem;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Mente Financeira</h1>
-      <p>O controle inteligente dos seus investimentos na palma da mão.</p>
-      <div class="btn">Em Breve na Google Play</div>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <div class="page-bg" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+
+    <header class="site-header" id="topo">
+      <div class="container header-inner">
+        <a class="brand" href="#topo">
+          <span class="brand-mark" aria-hidden="true">M</span>
+          <span class="brand-text">Mente Financeira</span>
+        </a>
+        <nav class="nav-desktop" aria-label="Principal">
+          <a href="#recursos">Recursos</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#precos">Preços</a>
+          <a href="#faq">FAQ</a>
+          <a href="#politica">Privacidade</a>
+        </nav>
+        <div class="header-actions">
+          <a class="btn btn-ghost" href="#precos">Ver planos</a>
+          <a class="btn btn-primary" href="#cta">Começar agora</a>
+          <button
+            type="button"
+            class="menu-toggle"
+            aria-expanded="false"
+            aria-controls="nav-mobile"
+            aria-label="Abrir menu"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <div class="container">
+        <div id="nav-mobile" class="nav-mobile" hidden>
+          <a href="#recursos">Recursos</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#precos">Preços</a>
+          <a href="#faq">FAQ</a>
+          <a href="#politica">Privacidade</a>
+          <a class="btn btn-primary" href="#cta" style="margin-top: 0.5rem; text-align: center"
+            >Começar agora</a
+          >
+        </div>
+      </div>
     </header>
 
-    <div class="content-box" id="politica">
-      <h2>Política de Privacidade</h2>
-      <p><strong>Responsável:</strong> Lucas Abatayguara Trindade</p>
-      <p>
-        Esta política descreve como o aplicativo
-        <strong>Mente Financeira</strong> coleta e utiliza seus dados.
-      </p>
+    <main id="conteudo">
+      <section class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div>
+            <div class="badge-row">
+              <span class="badge-dot" aria-hidden="true"></span>
+              Ações &amp; fundos imobiliários
+            </div>
+            <h1>
+              Sua carteira organizada. <span>Decisões mais claras.</span>
+            </h1>
+            <p class="hero-lead">
+              Acompanhe posição, dividendos e performance de ações e FIIs em um
+              só lugar — sem ruído e com visual pensado para quem investe no
+              longo prazo.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#precos">Assinar o app</a>
+              <a class="btn btn-ghost" href="#recursos">Ver recursos</a>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric">
+                <strong>100%</strong>
+                <span>focado em patrimônio</span>
+              </div>
+              <div class="metric">
+                <strong>Carteira</strong>
+                <span>multiativos</span>
+              </div>
+              <div class="metric">
+                <strong>BR</strong>
+                <span>em português</span>
+              </div>
+            </div>
+          </div>
+          <div class="mock-wrap">
+            <div class="phone" role="img" aria-label="Prévia ilustrativa do aplicativo">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="screen-header">
+                  <span class="screen-title">Resumo</span>
+                  <span class="screen-pill">+2,4% no mês</span>
+                </div>
+                <div class="chart-bars" aria-hidden="true">
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </div>
+                <div class="ticker-row" aria-hidden="true">
+                  <div class="ticker">
+                    <span class="chip"><b>PETR4</b> · +1,2%</span>
+                    <span class="chip"><b>VALE3</b> · −0,4%</span>
+                    <span class="chip"><b>HGLG11</b> · +0,8%</span>
+                    <span class="chip"><b>XPML11</b> · +0,3%</span>
+                    <span class="chip"><b>PETR4</b> · +1,2%</span>
+                    <span class="chip"><b>VALE3</b> · −0,4%</span>
+                    <span class="chip"><b>HGLG11</b> · +0,8%</span>
+                    <span class="chip"><b>XPML11</b> · +0,3%</span>
+                  </div>
+                </div>
+                <div class="asset-list">
+                  <div class="asset">
+                    <span class="sym">Carteira · FIIs</span>
+                    <span class="up">38%</span>
+                  </div>
+                  <div class="asset">
+                    <span class="sym">Carteira · Ações</span>
+                    <span class="up">62%</span>
+                  </div>
+                  <div class="asset">
+                    <span class="sym">Próximos proventos</span>
+                    <span class="up">7 dias</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <h3>1. Informações Coletadas</h3>
-      <p>
-        Coletamos nome, e-mail e dados de investimentos informados
-        voluntariamente por você para fins de acompanhamento de carteira. Não
-        somos uma corretora e não executamos ordens de compra/venda.
-      </p>
+      <div class="strip" aria-hidden="true">
+        <div class="container" style="overflow: hidden">
+          <div class="strip-inner">
+            <span>Ações</span><span>·</span><span>FIIs</span><span>·</span
+            ><span>Dividendos</span><span>·</span><span>Alocação</span
+            ><span>·</span><span>Metas</span><span>·</span><span>Histórico</span
+            ><span>·</span><span>Ações</span><span>·</span><span>FIIs</span
+            ><span>·</span><span>Dividendos</span><span>·</span
+            ><span>Alocação</span><span>·</span><span>Metas</span><span>·</span
+            ><span>Histórico</span>
+          </div>
+        </div>
+      </div>
 
-      <h3>2. Exclusão de Dados</h3>
-      <p>
-        Você pode solicitar a exclusão de sua conta e todos os dados vinculados
-        diretamente nas configurações do aplicativo ou pelo e-mail:
-        <strong>suporte@mentefinanceira.com.br</strong>.
-      </p>
+      <section id="recursos">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Tudo o que você precisa para acompanhar seus investimentos</h2>
+            <p>
+              Ferramentas pensadas para quem quer clareza — não para virar trader
+              de plantão.
+            </p>
+          </div>
+          <div class="features reveal reveal-stagger">
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">📊</div>
+              <h3>Carteira unificada</h3>
+              <p>
+                Ações e fundos imobiliários lado a lado, com visão de alocação e
+                evolução do patrimônio.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">💰</div>
+              <h3>Proventos &amp; FIIs</h3>
+              <p>
+                Linha do tempo de dividendos e rendimentos para enxergar o fluxo
+                recorrente da sua carteira.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🎯</div>
+              <h3>Metas financeiras</h3>
+              <p>
+                Defina objetivos e acompanhe o quanto falta — sem planilhas
+                frágeis e fáceis de quebrar.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🔔</div>
+              <h3>Lembretes úteis</h3>
+              <p>
+                Não perca datas relevantes: eventos, proventos e revisões da
+                estratégia em um só calendário.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🔒</div>
+              <h3>Privacidade em primeiro lugar</h3>
+              <p>
+                Seus dados tratados com cuidado. Você controla o que registra — não
+                somos corretora.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">⚡</div>
+              <h3>Experiência rápida</h3>
+              <p>
+                Interface leve e responsiva para consultar posições em segundos,
+                onde estiver.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-      <h3>3. Segurança</h3>
-      <p>
-        Utilizamos criptografia (HTTPS/TLS) e armazenamento seguro em banco de
-        dados PostgreSQL com hashing de senhas.
-      </p>
+      <section id="como-funciona">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Comece em três passos</h2>
+            <p>Configure uma vez e mantenha o hábito de revisar com tranquilidade.</p>
+          </div>
+          <div class="steps reveal reveal-stagger">
+            <div class="step">
+              <h3>Baixe o app</h3>
+              <p>Disponível na Google Play. Crie sua conta em poucos minutos.</p>
+            </div>
+            <div class="step">
+              <h3>Cadastre seus ativos</h3>
+              <p>
+                Registre posições em ações e FIIs — quantidades, preços médios e
+                aportes.
+              </p>
+            </div>
+            <div class="step">
+              <h3>Acompanhe e decida melhor</h3>
+              <p>
+                Veja a carteira consolidada, proventos e evolução para apoiar
+                decisões conscientes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <p>
-        <em
-          >Para a versão completa da política e termos de uso, entre em contato
-          através do nosso suporte.</em
-        >
-      </p>
-    </div>
+      <section id="precos">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Planos que cabem na sua rotina</h2>
+            <p>
+              Escolha cobrança mensal ou anual. No anual você economiza e mantém o
+              foco no longo prazo.
+            </p>
+          </div>
 
-    <footer>
-      &copy; 2026 Mente Financeira - Lucas Abatayguara Trindade
-      <nav>
-        <a href="#politica">Privacidade</a> |
-        <a href="mailto:suporte@mentefinanceira.com.br">Suporte</a>
-      </nav>
+          <div class="pricing-toggle-wrap reveal">
+            <div
+              class="pricing-toggle"
+              id="pricing-toggle"
+              data-period="monthly"
+              role="group"
+              aria-label="Período de cobrança"
+            >
+              <span class="toggle-pill" aria-hidden="true"></span>
+              <button type="button" class="is-active" data-period="monthly">
+                Mensal
+              </button>
+              <button type="button" data-period="yearly">Anual</button>
+            </div>
+            <p class="save-badge" id="save-badge" hidden>
+              ✨ Economia de ~2 meses no plano anual
+            </p>
+          </div>
+
+          <div class="pricing-cards">
+            <article class="price-card reveal">
+              <p class="price-label">Plano Essencial</p>
+              <p class="price-amount" id="price-main">
+                <span class="currency">R$</span><span id="price-value">24,90</span>
+              </p>
+              <p class="price-period" id="price-period">por mês, cancelamento a qualquer momento</p>
+              <p class="price-equivalent is-hidden" id="price-equiv" aria-live="polite"></p>
+              <ul class="price-list">
+                <li>Carteira ilimitada de ações e FIIs</li>
+                <li>Histórico de proventos e aportes</li>
+                <li>Metas e resumos visuais</li>
+                <li>Suporte por e-mail</li>
+              </ul>
+              <a class="btn btn-ghost" href="#cta" style="width: 100%">Quero o Essencial</a>
+            </article>
+
+            <article class="price-card popular reveal">
+              <span class="ribbon">Mais escolhido</span>
+              <p class="price-label">Plano Pro</p>
+              <p class="price-amount" id="price-pro-main">
+                <span class="currency">R$</span><span id="price-pro-value">39,90</span>
+              </p>
+              <p class="price-period" id="price-pro-period">por mês, para investidores ativos</p>
+              <p class="price-equivalent is-hidden" id="price-pro-equiv" aria-live="polite"></p>
+              <ul class="price-list">
+                <li>Tudo do Essencial</li>
+                <li>Alertas e lembretes avançados</li>
+                <li>Relatórios extras de alocação</li>
+                <li>Fila prioritária de suporte</li>
+              </ul>
+              <a class="btn btn-primary" href="#cta" style="width: 100%">Quero o Pro</a>
+            </article>
+          </div>
+
+          <p
+            style="
+              text-align: center;
+              color: var(--muted);
+              font-size: 0.88rem;
+              margin-top: 1.75rem;
+              max-width: 520px;
+              margin-inline: auto;
+            "
+            class="reveal"
+          >
+            Valores ilustrativos — ajuste no código ou na sua página de checkout
+            quando integrar pagamento. Não executamos ordens na bolsa.
+          </p>
+        </div>
+      </section>
+
+      <section id="depoimentos" aria-label="Depoimentos">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Quem usa, recomenda</h2>
+            <p>Depoimentos ilustrativos — personalize com clientes reais depois.</p>
+          </div>
+          <div class="testimonials reveal reveal-stagger">
+            <figure class="quote-card">
+              <p>
+                “Finalmente parei de misturar três planilhas. FIIs e ações no mesmo
+                painel mudou minha leitura da carteira.”
+              </p>
+              <figcaption class="quote-author">
+                <span class="avatar">RC</span>
+                <div>
+                  <strong>Renata C.</strong>
+                  <span>Investidora há 6 anos</span>
+                </div>
+              </figcaption>
+            </figure>
+            <figure class="quote-card">
+              <p>
+                “Uso para dividendos e metas. A visão mensal me ajuda a não
+                mexer demais na estratégia.”
+              </p>
+              <figcaption class="quote-author">
+                <span class="avatar">MF</span>
+                <div>
+                  <strong>Marcos F.</strong>
+                  <span>Foco em renda passiva</span>
+                </div>
+              </figcaption>
+            </figure>
+            <figure class="quote-card">
+              <p>
+                “Dá para ver alocação e histórico sem poluição. É exatamente o que
+                eu queria no celular.”
+              </p>
+              <figcaption class="quote-author">
+                <span class="avatar">AS</span>
+                <div>
+                  <strong>Amanda S.</strong>
+                  <span>Profissional liberal</span>
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Perguntas frequentes</h2>
+            <p>Tire dúvidas comuns antes de assinar.</p>
+          </div>
+          <div class="faq reveal">
+            <div class="faq-item">
+              <button type="button" aria-expanded="false">
+                <span>O app executa compras na bolsa?</span>
+                <span class="chev" aria-hidden="true">▼</span>
+              </button>
+              <div class="faq-panel">
+                <div class="faq-panel-inner">
+                  Não. O Mente Financeira é para organização e acompanhamento. Para
+                  negociar ativos, use sua corretora.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" aria-expanded="false">
+                <span>Posso mudar de plano depois?</span>
+                <span class="chev" aria-hidden="true">▼</span>
+              </button>
+              <div class="faq-panel">
+                <div class="faq-panel-inner">
+                  Sim. Você pode alternar entre opções de cobrança conforme as regras
+                  que você definir na loja ou no painel de assinatura.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" aria-expanded="false">
+                <span>O plano anual vale a pena?</span>
+                <span class="chev" aria-hidden="true">▼</span>
+              </button>
+              <div class="faq-panel">
+                <div class="faq-panel-inner">
+                  O anual costuma oferecer desconto equivalente a vários meses. Ideal
+                  se você já usa ou pretende usar o app durante o ano todo.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" aria-expanded="false">
+                <span>Como peço exclusão dos meus dados?</span>
+                <span class="chev" aria-hidden="true">▼</span>
+              </button>
+              <div class="faq-panel">
+                <div class="faq-panel-inner">
+                  Pelas configurações do app ou pelo e-mail
+                  <a href="mailto:suporte@mentefinanceira.com.br">suporte@mentefinanceira.com.br</a>
+                  — conforme nossa política de privacidade abaixo.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cta">
+        <div class="container reveal">
+          <div class="cta-band">
+            <h2>Pronto para organizar sua carteira?</h2>
+            <p>
+              Baixe o app, escolha seu plano e comece com a tranquilidade de quem
+              enxerga o patrimônio de forma inteira.
+            </p>
+            <div class="btn-wrap">
+              <a
+                class="btn btn-primary"
+                href="https://play.google.com/store"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Google Play</a
+              >
+              <a class="btn btn-ghost" href="#precos" style="border-color: rgba(255,255,255,0.25)"
+                >Comparar planos</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container" id="politica">
+        <div class="legal-section reveal">
+          <h2>Política de privacidade</h2>
+          <p><strong>Responsável:</strong> Lucas Abatayguara Trindade</p>
+          <p>
+            Esta política descreve como o aplicativo <strong>Mente Financeira</strong>
+            coleta e utiliza seus dados.
+          </p>
+          <h3>1. Informações coletadas</h3>
+          <p>
+            Coletamos nome, e-mail e dados de investimentos informados
+            voluntariamente por você para fins de acompanhamento de carteira. Não
+            somos uma corretora e não executamos ordens de compra ou venda.
+          </p>
+          <h3>2. Exclusão de dados</h3>
+          <p>
+            Você pode solicitar a exclusão de sua conta e todos os dados
+            vinculados diretamente nas configurações do aplicativo ou pelo e-mail:
+            <strong>suporte@mentefinanceira.com.br</strong>.
+          </p>
+          <h3>3. Segurança</h3>
+          <p>
+            Utilizamos criptografia (HTTPS/TLS) e armazenamento seguro em banco de
+            dados PostgreSQL com hashing de senhas.
+          </p>
+          <p>
+            <em
+              >Para a versão completa da política e termos de uso, entre em contato
+              pelo nosso suporte.</em
+            >
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <a class="brand" href="#topo">
+            <span class="brand-mark">M</span>
+            <span class="brand-text">Mente Financeira</span>
+          </a>
+          <p>Clareza para quem investe em ações e fundos imobiliários no Brasil.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <a href="#recursos">Recursos</a>
+          <a href="#precos">Preços</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <a href="mailto:suporte@mentefinanceira.com.br">Suporte</a>
+          <a href="#politica">Privacidade</a>
+          <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer"
+            >Google Play</a
+          >
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Mente Financeira — Lucas Abatayguara Trindade
+      </div>
     </footer>
+
+    <script>
+      (function () {
+        const header = document.querySelector(".site-header");
+        const menuBtn = document.querySelector(".menu-toggle");
+        const navMobile = document.getElementById("nav-mobile");
+
+        function onScroll() {
+          header.classList.toggle("is-scrolled", window.scrollY > 24);
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        if (menuBtn && navMobile) {
+          menuBtn.addEventListener("click", () => {
+            const open = navMobile.classList.toggle("is-open");
+            navMobile.hidden = !open;
+            menuBtn.setAttribute("aria-expanded", open);
+            menuBtn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+          });
+          navMobile.querySelectorAll("a").forEach((a) => {
+            a.addEventListener("click", () => {
+              navMobile.classList.remove("is-open");
+              navMobile.hidden = true;
+              menuBtn.setAttribute("aria-expanded", "false");
+              menuBtn.setAttribute("aria-label", "Abrir menu");
+            });
+          });
+        }
+
+        /* Scroll reveal */
+        const reveals = document.querySelectorAll(".reveal");
+        const revObs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) e.target.classList.add("is-visible");
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        );
+        reveals.forEach((el) => revObs.observe(el));
+
+        /* Pricing: monthly / yearly (edit amounts here) */
+        const PLANS = {
+          essential: { monthly: 24.9, yearly: 249.0 },
+          pro: { monthly: 39.9, yearly: 399.0 },
+        };
+
+        const fmt = (n) =>
+          n.toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+
+        const toggle = document.getElementById("pricing-toggle");
+        const saveBadge = document.getElementById("save-badge");
+        const priceValue = document.getElementById("price-value");
+        const pricePeriod = document.getElementById("price-period");
+        const priceEquiv = document.getElementById("price-equiv");
+        const priceProValue = document.getElementById("price-pro-value");
+        const priceProPeriod = document.getElementById("price-pro-period");
+        const priceProEquiv = document.getElementById("price-pro-equiv");
+
+        function setPricing(period) {
+          if (!toggle) return;
+          toggle.dataset.period = period;
+          toggle.querySelectorAll("button").forEach((b) => {
+            b.classList.toggle("is-active", b.dataset.period === period);
+          });
+
+          if (saveBadge) saveBadge.hidden = period !== "yearly";
+
+          if (period === "monthly") {
+            if (priceValue) priceValue.textContent = fmt(PLANS.essential.monthly);
+            if (pricePeriod)
+              pricePeriod.textContent =
+                "por mês, cancelamento a qualquer momento";
+            if (priceEquiv) {
+              priceEquiv.textContent = "";
+              priceEquiv.classList.add("is-hidden");
+            }
+            if (priceProValue) priceProValue.textContent = fmt(PLANS.pro.monthly);
+            if (priceProPeriod)
+              priceProPeriod.textContent = "por mês, para investidores ativos";
+            if (priceProEquiv) {
+              priceProEquiv.textContent = "";
+              priceProEquiv.classList.add("is-hidden");
+            }
+          } else {
+            const mEss = PLANS.essential.yearly / 12;
+            const mPro = PLANS.pro.yearly / 12;
+            if (priceValue) priceValue.textContent = fmt(PLANS.essential.yearly);
+            if (pricePeriod) pricePeriod.textContent = "por ano (cobrança única)";
+            if (priceEquiv) {
+              priceEquiv.textContent = `Equivale a R$ ${fmt(mEss)}/mês`;
+              priceEquiv.classList.remove("is-hidden");
+            }
+            if (priceProValue) priceProValue.textContent = fmt(PLANS.pro.yearly);
+            if (priceProPeriod) priceProPeriod.textContent = "por ano (cobrança única)";
+            if (priceProEquiv) {
+              priceProEquiv.textContent = `Equivale a R$ ${fmt(mPro)}/mês`;
+              priceProEquiv.classList.remove("is-hidden");
+            }
+          }
+        }
+
+        if (toggle) {
+          toggle.querySelectorAll("button").forEach((btn) => {
+            btn.addEventListener("click", () =>
+              setPricing(btn.dataset.period || "monthly")
+            );
+          });
+        }
+
+        /* FAQ accordion */
+        document.querySelectorAll(".faq-item").forEach((item) => {
+          const btn = item.querySelector("button");
+          const panel = item.querySelector(".faq-panel");
+          const inner = item.querySelector(".faq-panel-inner");
+          if (!btn || !panel || !inner) return;
+
+          btn.addEventListener("click", () => {
+            const open = item.classList.toggle("is-open");
+            btn.setAttribute("aria-expanded", open);
+            panel.style.maxHeight = open ? inner.scrollHeight + 24 + "px" : "0";
+          });
+        });
+
+      })();
+    </script>
   </body>
 </html>
