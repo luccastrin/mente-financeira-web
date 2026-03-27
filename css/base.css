@@ -40,8 +40,8 @@ body {
   position: absolute;
   left: -999px;
   top: 0;
-  background: var(--accent);
-  color: #042f2e;
+  background: var(--gradient-brand);
+  color: var(--btn-on-gradient);
   padding: 0.75rem 1rem;
   z-index: 9999;
   font-weight: 600;
@@ -63,8 +63,13 @@ body {
   z-index: -2;
   background: radial-gradient(
       ellipse 120% 80% at 50% -20%,
-      #122032 0%,
-      var(--bg-deep) 55%
+      rgba(25, 37, 216, 0.35) 0%,
+      var(--bg-deep) 58%
+    ),
+    radial-gradient(
+      ellipse 80% 50% at 100% 0%,
+      rgba(137, 31, 182, 0.2) 0%,
+      transparent 55%
     ),
     var(--bg-deep);
 }
@@ -104,7 +109,7 @@ body {
 .orb-1 {
   width: 420px;
   height: 420px;
-  background: #0d9488;
+  background: #4c1d95;
   top: -120px;
   right: -80px;
   animation: float-1 18s ease-in-out infinite;
@@ -112,7 +117,7 @@ body {
 .orb-2 {
   width: 360px;
   height: 360px;
-  background: #1e3a5f;
+  background: #1e3a8a;
   bottom: 10%;
   left: -100px;
   animation: float-2 22s ease-in-out infinite;

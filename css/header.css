@@ -10,7 +10,7 @@
     box-shadow 0.35s ease;
 }
 .site-header.is-scrolled {
-  background: rgba(7, 11, 18, 0.75);
+  background: rgba(22, 24, 26, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 1px 0 var(--border);
@@ -35,23 +35,23 @@
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent), #059669);
+  background: var(--gradient-brand);
   display: grid;
   place-items: center;
   font-weight: 800;
   font-size: 1.1rem;
-  color: #042f2e;
-  box-shadow: 0 8px 32px rgba(52, 211, 153, 0.35);
+  color: var(--btn-on-gradient);
+  box-shadow: 0 8px 32px rgba(25, 37, 216, 0.4);
   animation: mark-pulse 3s ease-in-out infinite;
 }
 
 @keyframes mark-pulse {
   0%,
   100% {
-    box-shadow: 0 8px 32px rgba(52, 211, 153, 0.35);
+    box-shadow: 0 8px 32px rgba(25, 37, 216, 0.35);
   }
   50% {
-    box-shadow: 0 12px 40px rgba(52, 211, 153, 0.5);
+    box-shadow: 0 12px 40px rgba(137, 31, 182, 0.45);
   }
 }
 
@@ -130,12 +130,12 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), #10b981);
-  color: #042f2e;
-  box-shadow: 0 8px 28px rgba(16, 185, 129, 0.35);
+  background: var(--gradient-brand);
+  color: var(--btn-on-gradient);
+  box-shadow: 0 8px 28px rgba(25, 37, 216, 0.4);
 }
 .btn-primary:hover {
-  box-shadow: 0 12px 36px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 12px 36px rgba(137, 31, 182, 0.38);
   transform: translateY(-1px);
 }
 

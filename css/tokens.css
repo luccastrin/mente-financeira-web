@@ -1,18 +1,28 @@
 :root {
-  --bg-deep: #070b12;
-  --bg-card: rgba(15, 22, 36, 0.72);
-  --bg-card-solid: #0f1624;
+  /* Alinhado ao app Flutter (lib/core/theme/colors.dart) */
+  --bg-deep: #16181a;
+  --bg-card: rgba(30, 31, 40, 0.85);
+  --bg-card-solid: #1e1f28;
   --border: rgba(255, 255, 255, 0.08);
   --text: #e8ecf4;
-  --muted: #94a3b8;
-  --accent: #34d399;
-  --accent-dim: rgba(52, 211, 153, 0.15);
+  --muted: #989898;
+  --brand-blue: #1925d8;
+  --brand-purple: #891fb6;
+  --accent: #a5b0ff;
+  --accent-dim: rgba(25, 37, 216, 0.22);
+  --accent-purple-dim: rgba(137, 31, 182, 0.2);
+  --gradient-brand: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
+  --gradient-text: linear-gradient(120deg, #9ea8ff, #c084fc, #e879f9);
+  --icon-tile: #323541;
+  --btn-on-gradient: #ffffff;
   --gold: #fbbf24;
   --gold-dim: rgba(251, 191, 36, 0.12);
   --danger: #f87171;
+  --positive: #75f94c;
   --radius: 16px;
   --radius-lg: 24px;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
   --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
   --font-display: "Fraunces", Georgia, serif;
+  --font-app: "Montserrat", var(--font-sans);
 }
