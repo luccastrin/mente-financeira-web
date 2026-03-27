@@ -1,0 +1,70 @@
+<section id="precos">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Planos que cabem na sua rotina</h2>
+      <p>
+        Escolha cobrança mensal ou anual. No anual você economiza e mantém o foco
+        no longo prazo.
+      </p>
+    </div>
+
+    <div class="pricing-toggle-wrap reveal">
+      <div
+        class="pricing-toggle"
+        id="pricing-toggle"
+        data-period="monthly"
+        role="group"
+        aria-label="Período de cobrança"
+      >
+        <span class="toggle-pill" aria-hidden="true"></span>
+        <button type="button" class="is-active" data-period="monthly">Mensal</button>
+        <button type="button" data-period="yearly">Anual</button>
+      </div>
+      <p class="save-badge" id="save-badge" hidden>
+        ✨ Economia de ~2 meses no plano anual
+      </p>
+    </div>
+
+    <div class="pricing-cards">
+      <article class="price-card reveal">
+        <p class="price-label">Plano Essencial</p>
+        <p class="price-amount" id="price-main">
+          <span class="currency">R$</span><span id="price-value">24,90</span>
+        </p>
+        <p class="price-period" id="price-period">
+          por mês, cancelamento a qualquer momento
+        </p>
+        <p class="price-equivalent is-hidden" id="price-equiv" aria-live="polite"></p>
+        <ul class="price-list">
+          <li>Carteira ilimitada de ações e FIIs</li>
+          <li>Histórico de proventos e aportes</li>
+          <li>Metas e resumos visuais</li>
+          <li>Suporte por e-mail</li>
+        </ul>
+        <a class="btn btn-ghost" href="#cta" style="width: 100%">Quero o Essencial</a>
+      </article>
+
+      <article class="price-card popular reveal">
+        <span class="ribbon">Mais escolhido</span>
+        <p class="price-label">Plano Pro</p>
+        <p class="price-amount" id="price-pro-main">
+          <span class="currency">R$</span><span id="price-pro-value">39,90</span>
+        </p>
+        <p class="price-period" id="price-pro-period">por mês, para investidores ativos</p>
+        <p class="price-equivalent is-hidden" id="price-pro-equiv" aria-live="polite"></p>
+        <ul class="price-list">
+          <li>Tudo do Essencial</li>
+          <li>Alertas e lembretes avançados</li>
+          <li>Relatórios extras de alocação</li>
+          <li>Fila prioritária de suporte</li>
+        </ul>
+        <a class="btn btn-primary" href="#cta" style="width: 100%">Quero o Pro</a>
+      </article>
+    </div>
+
+    <p class="pricing-disclaimer reveal">
+      Valores ilustrativos — ajuste no código ou na sua página de checkout quando
+      integrar pagamento. Não executamos ordens na bolsa.
+    </p>
+  </div>
+</section>

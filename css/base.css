@@ -1,0 +1,186 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .orb,
+  .grid-bg,
+  .hero-glow {
+    animation: none !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  color: var(--text);
+  background: var(--bg-deep);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--accent);
+  color: #042f2e;
+  padding: 0.75rem 1rem;
+  z-index: 9999;
+  font-weight: 600;
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Wrapper dos partials HTML: não altera o layout (filhos sobem um nível na árvore de boxes). */
+[data-include] {
+  display: contents;
+}
+
+/* Ambient background */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(
+      ellipse 120% 80% at 50% -20%,
+      #122032 0%,
+      var(--bg-deep) 55%
+    ),
+    var(--bg-deep);
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent);
+  animation: grid-pan 80s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes grid-pan {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 64px 64px, 64px 64px;
+  }
+}
+
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+  z-index: -1;
+  pointer-events: none;
+}
+.orb-1 {
+  width: 420px;
+  height: 420px;
+  background: #0d9488;
+  top: -120px;
+  right: -80px;
+  animation: float-1 18s ease-in-out infinite;
+}
+.orb-2 {
+  width: 360px;
+  height: 360px;
+  background: #1e3a5f;
+  bottom: 10%;
+  left: -100px;
+  animation: float-2 22s ease-in-out infinite;
+}
+
+@keyframes float-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-40px, 30px) scale(1.05);
+  }
+}
+@keyframes float-2 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(50px, -40px);
+  }
+}
+
+.container {
+  width: min(1120px, 92vw);
+  margin-inline: auto;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger.is-visible > *:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.reveal-stagger.is-visible > *:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.reveal-stagger.is-visible > *:nth-child(3) {
+  transition-delay: 0.15s;
+}
+.reveal-stagger.is-visible > *:nth-child(4) {
+  transition-delay: 0.2s;
+}
+.reveal-stagger.is-visible > *:nth-child(5) {
+  transition-delay: 0.25s;
+}
+.reveal-stagger.is-visible > *:nth-child(6) {
+  transition-delay: 0.3s;
+}
