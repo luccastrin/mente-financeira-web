@@ -234,6 +234,50 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hero-glow {
+    animation: none;
+    opacity: 0.8;
+  }
+
+  .badge-dot {
+    animation: none;
+    opacity: 0.85;
+  }
+
+  .mock-wrap {
+    perspective: none;
+  }
+
+  .hero-device {
+    transform: none;
+  }
+
+  .mock-wrap:hover .hero-device {
+    transform: none;
+  }
+
+  .hero-device::before {
+    filter: none;
+    opacity: 0.55;
+    background: radial-gradient(
+      ellipse,
+      rgba(137, 31, 182, 0.32) 0%,
+      rgba(25, 37, 216, 0.14) 48%,
+      transparent 72%
+    );
+  }
+
+  .hero-device img {
+    filter: drop-shadow(0 22px 36px rgba(0, 0, 0, 0.55));
+    transition: none;
+  }
+
+  .mock-wrap:hover .hero-device img {
+    filter: drop-shadow(0 22px 36px rgba(0, 0, 0, 0.55));
+  }
+}
+
 /* Logo strip */
 .strip {
   padding: 2rem 0;

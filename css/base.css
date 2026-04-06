@@ -24,6 +24,49 @@ html {
   .hero-glow {
     animation: none !important;
   }
+  .strip-inner {
+    animation: none !important;
+  }
+  .cta-band::before {
+    animation: none !important;
+  }
+}
+
+/* Mobile: blur + animated masks on fixed layers and backdrop-filter are the main scroll jank sources */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .grid-bg {
+    animation: none;
+    mask-image: none;
+    opacity: 0.38;
+  }
+
+  .orb {
+    filter: none;
+    opacity: 0.32;
+    animation: none;
+  }
+
+  .orb-1 {
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(124, 58, 237, 0.55) 0%,
+      rgba(76, 29, 149, 0.22) 42%,
+      transparent 68%
+    );
+  }
+
+  .orb-2 {
+    background: radial-gradient(
+      circle at 40% 40%,
+      rgba(37, 99, 235, 0.48) 0%,
+      rgba(30, 58, 138, 0.2) 45%,
+      transparent 68%
+    );
+  }
 }
 
 body {

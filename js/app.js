@@ -4,8 +4,14 @@ export function initScrollHeader() {
   const header = document.querySelector(".site-header");
   if (!header) return;
 
+  let ticking = false;
   function onScroll() {
-    header.classList.toggle("is-scrolled", window.scrollY > 24);
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
+      ticking = false;
+    });
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
